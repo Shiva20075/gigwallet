@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Instrument Serif", Georgia, serif;
+
+  --color-paper: #f5f1e8;
+  --color-card: #fffdf8;
+  --color-sand: #ede7da;
+  --color-line: #e4dccd;
+  --color-ink: #16130f;
+  --color-ink-2: #5a5349;
+  --color-ink-3: #6f675b;
+  --color-accent: #e8590c;
+  --color-accent-deep: #b8440a;
+  --color-accent-soft: #fce6d6;
+  --color-good: #1c7046;
+  --color-good-soft: #e2f0e7;
+  --color-good-bright: #7fd0a2;
+  --color-bad: #b3261e;
+  --color-bad-soft: #fae6e3;
+  --color-warn: #8a5300;
+  --color-warn-soft: #f9eccb;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+input[type="range"] {
+  accent-color: var(--color-accent);
+}
+
+/* hide number spinners — the fields are typed, not nudged */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-rise { animation: rise 0.22s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.animate-fade { animation: fade 0.18s ease-out; }
+
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); }
+}
+.animate-pop { animation: pop 0.38s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+/* bars, meters and the score ring ease to their new value */
+.ease-meter { transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s ease; }
+.ring-arc { transition: stroke-dashoffset 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), stroke 0.3s ease; }
+
+/* overspend: the part of a budget that income does not cover */
+.hatch-bad {
+  background: repeating-linear-gradient(135deg, var(--color-bad) 0 5px, #cf4a41 5px 10px);
+}
+
+/* shared hover for cards that are not themselves buttons */
+.card-hover { transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.card-hover:hover { border-color: #cfc5b2; box-shadow: 0 6px 20px -14px rgb(22 19 15 / 0.35); }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise, .animate-fade, .animate-pop { animation: none; }
+  .ease-meter, .ring-arc, .card-hover { transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+.recharts-wrapper:focus, .recharts-surface:focus { outline: none; }
